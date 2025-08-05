@@ -136,13 +136,13 @@ export const clone = <T>(obj: T): T => {
 
   // Access the constructor and create a new object.
   // This method can create an array as well.
-  const newObj = new ((obj as object).constructor as { new (): T })()
+  const newObj = new ((obj as object).constructor as { new(): T })()
 
   // Assign the props.
   Object.getOwnPropertyNames(obj).forEach(prop => {
     // Bypass type checking since the primitive cases
     // are already checked in the beginning
-    ;(newObj as any)[prop] = (obj as any)[prop]
+    ; (newObj as any)[prop] = (obj as any)[prop]
   })
 
   return newObj
@@ -225,6 +225,7 @@ export const get = <TDefault = unknown>(
     current = current[dequoted]
   }
   if (current === undefined) return defaultValue as TDefault
+  if (current === null) return defaultValue as TDefault
   return current
 }
 
